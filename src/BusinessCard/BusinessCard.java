@@ -1,5 +1,7 @@
 package BusinessCard;
 
+import java.util.ArrayList;
+
 public class BusinessCard {
 	private int id;					// 명함 번호
 	private String name;			// 성명
@@ -15,7 +17,31 @@ public class BusinessCard {
 	private String telephone;		// 회사 전화번호
 	private String businessType;	// 업종 명
 	
+	public BusinessCard(int i, String name, String phone, String team, String position,
+			String email, String savedTime, String company, String address, String zip,
+			String fax, String telephone, String businessType) {
+		// TODO Auto-generated constructor stub
+		this.id = i;
+		this.name = name;
+		this.phone = phone;
+		this.team = team;
+		this.position = position;
+		this.email = email;
+		this.savedTime = savedTime;
+		this.company = company;
+		this.address = address;
+		this.zip = zip;
+		this.fax = fax;
+		this.telephone = telephone;
+		this.businessType = businessType;
+	}
 	/* Getter & Setter */
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}	
 	public String getName() {
 		return name;
 	}

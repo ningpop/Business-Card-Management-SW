@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+table {
+	width: 100%;
+	border: 1px solid #444444;
+	border-collapse: collapse;
+}
+
+td {
+	border: 1px solid #444444;
+	padding: 10px;
+}
+
+.previousButton {
+	margin-top: 1rem;
+	border: none;
+	border-radius: 4px;
+	font-size: 1rem;
+	font-weight: bold;
+	padding: 0.25rem 1rem;
+	color: white;
+	outline: none;
+	cursor: pointer;
+	background: #343a40;
+}

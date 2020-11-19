@@ -1,10 +1,10 @@
 package user;
 
 public class User {
-	private int id;				// À¯Àú ¹øÈ£
-	private String name;		// ÀÌ¸§
-	private String username;	// À¯ÀúID or ´Ğ³×ÀÓ
-	private String password;	// ºñ¹Ğ¹øÈ£
+	private int id;				// ìœ ì € ë²ˆí˜¸
+	private String name;		// ì´ë¦„
+	private String username;	// ìœ ì €ID or ë‹‰ë„¤ì„
+	private String password;	// ë¹„ë°€ë²ˆí˜¸
 	
 	public int getId() {
 		return id;

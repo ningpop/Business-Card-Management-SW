@@ -1,6 +1,7 @@
 package BusinessCard;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class TestData {
 	private ArrayList<BusinessCard> bcData;
@@ -15,7 +16,7 @@ public class TestData {
 	public TestData() {
 		bcData = new ArrayList<BusinessCard>();
 		for (int i = 0; i < 10; i++) {
-			bcData.add(new BusinessCard(i, "¾ÈÁ¾Áø", "010-0000-0000", "ÆÀ", "ºÎÀå", "gmail", "2020-11-19", "È¸»ç", "¼­¿ïÆ¯º°½Ã", "11111", "000", "000", "°³¹ß"));
+			bcData.add(new BusinessCard(i, "ì•ˆì¢…ì§„", "010-0000-0000", "íŒ€", "ë¶€ìž¥", "gmail", "íšŒì‚¬", "ì„œìš¸íŠ¹ë³„ì‹œ", "11111", "000", "000", "ê°œë°œ"));
 		}
 	}
 

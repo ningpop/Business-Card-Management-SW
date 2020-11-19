@@ -12,9 +12,9 @@ public class BusinessCardDAO {
 	
 	public BusinessCardDAO() {
 		try {
-			String dbURL = "jdbc:mysql://localhost:3306/Business_card-javajo";
+			String dbURL = "jdbc:mysql://localhost:3306/javajo";
 			String dbID = "root";
-			String dbPassword = "root";
+			String dbPassword = "1111";
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
 		} catch (Exception e) {
@@ -22,7 +22,7 @@ public class BusinessCardDAO {
 		}
 	}
 	
-	/* ÇöÀç ½Ã°£ ±¸ÇÏ´Â ÇÔ¼ö */
+	/* í˜„ì¬ ì‹œê°„ êµ¬í•˜ëŠ” í•¨ìˆ˜ */
 	public String getDate() {
 		String SQL = "SELECT NOW()";
 		try {
@@ -45,13 +45,14 @@ public class BusinessCardDAO {
 			if (rs.next()) {
 				return rs.getInt(1) + 1;
 			}
-			return 1;	// Ã¹ ¹øÂ° ¸íÇÔÀÎ °æ¿ì
+			return 1;	// ì²« ë²ˆì§¸ ëª…í•¨ì¸ ê²½ìš°
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return -1; // µ¥ÀÌÅÍº£ÀÌ½º ¿À·ù
+		return -1; // ë°ì´í„°ë² ì´ìŠ¤ ì˜¤ë¥˜
 	}
 	
+	/*
 	public int write(String name,
 			String phone,
 			String team,
@@ -85,6 +86,7 @@ public class BusinessCardDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return -1; // µ¥ÀÌÅÍº£ÀÌ½º ¿À·ù
+		return -1; // ë°ì´í„°ë² ì´ìŠ¤ ì˜¤ë¥˜
 	}
+	*/
 }

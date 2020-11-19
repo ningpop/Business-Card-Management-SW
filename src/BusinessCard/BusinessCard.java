@@ -1,24 +1,25 @@
 package BusinessCard;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class BusinessCard {
-	private int id;					// ¸íÇÔ ¹øÈ£
-	private String name;			// ¼º¸í
-	private String phone;			// ÈŞ´ëÆù ¹øÈ£
-	private String team;			// ºÎ¼­
-	private String position;		// Á÷±Ş
-	private String email;			// ÀÌ¸ŞÀÏ ÁÖ¼Ò
-	private String savedTime;		// ÀúÀå ÀÏÀÚ
-	private String company;			// È¸»ç¸í
-	private String address;			// È¸»ç ÁÖ¼Ò
-	private String zip;				// È¸»ç ¿ìÆí¹øÈ£
-	private String fax;				// È¸»ç ÆÑ½º¹øÈ£
-	private String telephone;		// È¸»ç ÀüÈ­¹øÈ£
-	private String businessType;	// ¾÷Á¾ ¸í
+	private int id;					// ëª…í•¨ ë²ˆí˜¸
+	private String name;			// ì„±ëª…
+	private String phone;			// íœ´ëŒ€í° ë²ˆí˜¸
+	private String team;			// ë¶€ì„œ
+	private String position;		// ì§ê¸‰
+	private String email;			// ì´ë©”ì¼ ì£¼ì†Œ
+	private String savedTime;		// ì €ì¥ ì¼ì
+	private String company;			// íšŒì‚¬ëª…
+	private String address;			// íšŒì‚¬ ì£¼ì†Œ
+	private String zip;				// íšŒì‚¬ ìš°í¸ë²ˆí˜¸
+	private String fax;				// íšŒì‚¬ íŒ©ìŠ¤ë²ˆí˜¸
+	private String telephone;		// íšŒì‚¬ ì „í™”ë²ˆí˜¸
+	private String businessType;	// ì—…ì¢… ëª…
 	
 	public BusinessCard(int i, String name, String phone, String team, String position,
-			String email, String savedTime, String company, String address, String zip,
+			String email, String company, String address, String zip,
 			String fax, String telephone, String businessType) {
 		// TODO Auto-generated constructor stub
 		this.id = i;
@@ -27,7 +28,6 @@ public class BusinessCard {
 		this.team = team;
 		this.position = position;
 		this.email = email;
-		this.savedTime = savedTime;
 		this.company = company;
 		this.address = address;
 		this.zip = zip;
@@ -74,9 +74,6 @@ public class BusinessCard {
 	}
 	public String getSavedTime() {
 		return savedTime;
-	}
-	public void setSavedTime(String savedTime) {
-		this.savedTime = savedTime;
 	}
 	public String getCompany() {
 		return company;

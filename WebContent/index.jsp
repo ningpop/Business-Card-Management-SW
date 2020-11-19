@@ -1,7 +1,7 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="BusinessCard.BusinessCard"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="BusinessCard.TestData"%>
+<%@page import="BusinessCard.BusinessCardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -17,8 +17,8 @@
 <body>
 	<%
 		boolean isLogin = false;
-		TestData test = TestData.getInstance();
-		ArrayList<BusinessCard> list = test.getBcData();
+		BusinessCardDAO dao = new BusinessCardDAO();
+		ArrayList<BusinessCard> list = dao.getLists();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 	%>
 	<div class="header">

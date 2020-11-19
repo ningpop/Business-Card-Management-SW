@@ -1,7 +1,7 @@
 package BusinessCard;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 
 public class BusinessCard {
 	private int id;					// 명함 번호
@@ -10,7 +10,7 @@ public class BusinessCard {
 	private String team;			// 부서
 	private String position;		// 직급
 	private String email;			// 이메일 주소
-	private String savedTime;		// 저장 일자
+	private Date savedTime;		// 저장 일자
 	private String company;			// 회사명
 	private String address;			// 회사 주소
 	private String zip;				// 회사 우편번호
@@ -18,11 +18,10 @@ public class BusinessCard {
 	private String telephone;		// 회사 전화번호
 	private String businessType;	// 업종 명
 	
-	public BusinessCard(int i, String name, String phone, String team, String position,
+	public BusinessCard(int id, String name, String phone, String team, String position,
 			String email, String company, String address, String zip,
-			String fax, String telephone, String businessType) {
+			String fax, String telephone, String businessType, Date savedTime) {
 		// TODO Auto-generated constructor stub
-		this.id = i;
 		this.name = name;
 		this.phone = phone;
 		this.team = team;
@@ -34,14 +33,12 @@ public class BusinessCard {
 		this.fax = fax;
 		this.telephone = telephone;
 		this.businessType = businessType;
+		this.savedTime = savedTime;
 	}
 	/* Getter & Setter */
 	public int getId() {
 		return id;
 	}
-	public void setId(int id) {
-		this.id = id;
-	}	
 	public String getName() {
 		return name;
 	}
@@ -72,7 +69,7 @@ public class BusinessCard {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getSavedTime() {
+	public Date getSavedTime() {
 		return savedTime;
 	}
 	public String getCompany() {

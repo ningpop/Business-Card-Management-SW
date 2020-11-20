@@ -71,6 +71,6 @@ html, body {
 
 @media ( max-width : 768px) {
 	.responsive {
-		width: 100%;
+		width: auto;
 	}
 }

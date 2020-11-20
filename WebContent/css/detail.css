@@ -23,3 +23,27 @@ td {
 	cursor: pointer;
 	background: #343a40;
 }
+
+.date {
+	width: 100%;
+	text-align: right;
+}
+
+.name {
+	background: lightgray;
+	width: 10%;
+}
+
+.body {
+	width: 40%;
+}
+
+@media ( max-width : 1024px) {
+	.name {
+		width: 20%;
+	}
+	.body {
+		width: 30%;
+	}
+}
+

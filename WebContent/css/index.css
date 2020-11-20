@@ -59,3 +59,16 @@ th, td {
 	font-size: 1.25rem;
 }
 
+@media ( max-width : 768px) {
+	th, td {
+		padding-left: 3px;
+		padding-right: 3px;
+	}
+	.name {
+		font-size: 30px;
+		width: 150px;
+	}
+	.search {
+		width: 130px;
+	}
+}

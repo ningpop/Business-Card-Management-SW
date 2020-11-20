@@ -1,5 +1,5 @@
+<%@page import="BusinessCard.BusinessCardDAO"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="BusinessCard.TestData"%>
 <%@page import="BusinessCard.BusinessCard"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -16,7 +16,8 @@
 	<%
 		boolean isLogin = false;
 		int id = Integer.parseInt(request.getParameter("id"));
-		BusinessCard bc = TestData.getInstance().getOneBC(id);
+		BusinessCardDAO dao = new BusinessCardDAO();
+		BusinessCard bc = dao.getOne(id);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 	%>
 	<div class="header">
@@ -44,46 +45,43 @@
 			<h1>상세 정보</h1>
 			<table>
 				<tr>
-					<td style="width: 10%;">아이디</td>
-					<td style="width: 40%;"><%=bc.getId()%></td>
-					<td style="width: 10%;">이름</td>
-					<td style="width: 40%;"><%=bc.getName()%></td>
+					<td class="name">아이디</td>
+					<td class="body"><%=bc.getId()%></td>
+					<td class="name">이름</td>
+					<td class="body"><%=bc.getName()%></td>
 				</tr>
 				<tr>
-					<td style="width: 10%;">회사 </td>
-					<td style="width: 40%;"><%=bc.getCompany()%></td>
-					<td style="width: 10%;">전화번호</td>
-					<td style="width: 40%;"><%=bc.getPhone()%></td>
+					<td class="name">회사 </td>
+					<td class="body"><%=bc.getCompany()%></td>
+					<td class="name">전화번호</td>
+					<td class="body"><%=bc.getPhone()%></td>
 				</tr>
 				<tr>
-					<td style="width: 10%;">부서</td>
-					<td style="width: 40%;"><%=bc.getTeam() %></td>
-					<td style="width: 10%;">직급</td>
-					<td style="width: 40%;"><%= bc.getPosition()%></td>
+					<td class="name">부서</td>
+					<td class="body"><%=bc.getTeam() %></td>
+					<td class="name">직급</td>
+					<td class="body"><%= bc.getPosition()%></td>
 				</tr>
 				<tr>
-					<td style="width: 10%;">이메일</td>
-					<td style="width: 40%;"><%= bc.getEmail()%></td>
-					<td style="width: 10%;">주소</td>
-					<td style="width: 40%;"><%= bc.getAddress()%></td>
+					<td class="name">이메일</td>
+					<td class="body"><%= bc.getEmail()%></td>
+					<td class="name">주소</td>
+					<td class="body"><%= bc.getAddress()%></td>
 				</tr>
 				<tr>
-					<td style="width: 10%;">우편번호</td>
-					<td style="width: 40%;"><%= bc.getZip()%></td>
-					<td style="width: 10%;">팩스</td>
-					<td style="width: 40%;"><%= bc.getFax()%></td>
+					<td class="name">우편번호</td>
+					<td class="body"><%= bc.getZip()%></td>
+					<td class="name">팩스</td>
+					<td class="body"><%= bc.getFax()%></td>
 				</tr>
 				<tr>
-					<td style="width: 10%;">회사 전화</td>
-					<td style="width: 40%;"><%= bc.getTelephone()%></td>
-					<td style="width: 10%;">업종</td>
-					<td style="width: 40%;"><%= bc.getBusinessType()%></td>
-				</tr>
-				<tr>
-					<td style="width: 10%;">저장 일자</td>
-					<td style="width: 40%;"><%=format.format(bc.getSavedTime())%></td>
+					<td class="name">회사 전화</td>
+					<td class="body"><%= bc.getTelephone()%></td>
+					<td class="name">업종</td>
+					<td class="body"><%= bc.getBusinessType()%></td>
 				</tr>
 			</table>
+			<div class="date">등록일: <%=format.format(bc.getSavedTime())%></div>
 			<button class="previousButton" onclick="history.back()">이전</button>
 		</div>
 	</div>

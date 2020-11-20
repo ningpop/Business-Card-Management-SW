@@ -71,6 +71,20 @@ public class BusinessCardDAO {
 		return null; // 데이터베이스 오류
 	}
 	
+	public BusinessCard getOne(int id) {
+		String SQL = "SELECT id, name, phone, team, position, email, savedTime FROM business_card WHERE id = " + id + ";";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			rs = pstmt.executeQuery(SQL);
+			rs.next();
+			BusinessCard bc = new BusinessCard(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), null, null, null, null, null, null, rs.getDate(7));
+			return bc;
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	/*
 	public int write(String name,
 			String phone,

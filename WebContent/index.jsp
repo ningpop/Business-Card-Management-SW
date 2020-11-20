@@ -42,7 +42,7 @@
 	<div class="spacer"></div>
 	<div class="responsive">
 		<div class="title">
-			<h1>명함관리</h1>
+			<h1 class="name">명함관리</h1>
 			<div>
 				<input placeholder="검색어" class="search" />
 				<button class="searchButton">검색</button>

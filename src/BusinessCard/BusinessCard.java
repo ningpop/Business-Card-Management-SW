@@ -22,6 +22,7 @@ public class BusinessCard {
 			String email, String company, String address, String zip,
 			String fax, String telephone, String businessType, Date savedTime) {
 		// TODO Auto-generated constructor stub
+		this.id = id;
 		this.name = name;
 		this.phone = phone;
 		this.team = team;

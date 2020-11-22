@@ -17,7 +17,8 @@
 <body>
 	<%
 	boolean isLogin;
-		String name = (String) session.getAttribute("name");
+	int id = -1;
+	String name = (String) session.getAttribute("name");
 	String username = (String) session.getAttribute("username");
 	String password = (String) session.getAttribute("password");
 	if (name == null || username == null || password == null) {
@@ -26,7 +27,9 @@
 	}
 	else {
 		isLogin = true;
+		id = Integer.parseInt((String)session.getAttribute("id"));
 	}
+	
 	String param = request.getParameter("page");
 	String search = request.getParameter("search");
 	BusinessCardDAO dao = new BusinessCardDAO();
@@ -36,12 +39,16 @@
 		nowPage = 1;
 	else
 		nowPage = Integer.parseInt(param);
+	int endPage;
 	if (search == null || search.equals("") || search.equals("null")) {
-		list = dao.getLists(nowPage);
+		list = dao.getLists(nowPage, id);
 		search = "";
-	} else
+		endPage = dao.getCount() / 10 + 1;
+	} else {
 		list = dao.searchByName(search, nowPage);
-	int endPage = dao.getCount() / 10 + 1;
+		endPage = dao.getCount(search) / 10 + 1;
+	}
+	
 	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 	%>
 	<div class="header">
@@ -88,7 +95,7 @@
 					if (list != null)
 					for (BusinessCard bc : list) {
 				%>
-				<tr onclick="location.href='view.jsp?bcId=<%=bc.getId()%>'"
+				<tr onclick="location.href='detail.jsp?id=<%=bc.getId()%>'"
 					style="cursor: pointer;">
 					<td><%=bc.getId()%></td>
 					<td><%=bc.getName()%></td>

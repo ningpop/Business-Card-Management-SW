@@ -15,6 +15,7 @@
 <body>
 	<%
 		boolean isLogin;
+	int userId = -1;
 	String name = (String) session.getAttribute("name");
 	String username = (String) session.getAttribute("username");
 	String password = (String) session.getAttribute("password");
@@ -23,16 +24,18 @@
 		isLogin = false;
 	} else {
 		isLogin = true;
+		userId = Integer.parseInt((String)session.getAttribute("id"));
 	}
+	
 	int id = Integer.parseInt(request.getParameter("id"));
 	BusinessCardDAO dao = new BusinessCardDAO();
-	BusinessCard bc = dao.getOne(id);
+	BusinessCard bc = dao.getOne(id, userId);
 	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 	%>
 	<div class="header">
 		<div class="responsive">
 			<div class="wrapper">
-				<div onclick="location.href='/'" class="logo">BUSINESS CARD</div>
+				<div onclick="location.href='index.jsp'" class="logo">BUSINESS CARD</div>
 				<%
 					if (isLogin) {
 				%>

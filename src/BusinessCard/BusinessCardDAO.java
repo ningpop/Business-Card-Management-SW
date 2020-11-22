@@ -64,58 +64,66 @@ public class BusinessCardDAO {
 		return -1; // 데이터베이스 오류
 	}
 	
-	public ArrayList<BusinessCard> getLists(int page) {
-		String SQL = "SELECT bc.id, bc.name, bc.phone, bc.team, bc.position, bc.email, c.name, c.address, c.zip, c.fax, savedTime FROM business_card as bc join company as c on bc.company_id = c.id ORDER BY id DESC LIMIT " + ((page - 1) * 10) + ", 10;";
+	public ArrayList<BusinessCard> getLists(int page, int userId) {
+		String SQL = "SELECT id, name, phone, team, position, email, companyName, companyAddress, companyZip, companyFax, savedTime FROM business_card WHERE user_id = ? ORDER BY id DESC LIMIT " + ((page - 1) * 10) + ", 10;";
 		try {
 			ArrayList<BusinessCard> list = new ArrayList<BusinessCard>();
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, userId);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				BusinessCard bc = new BusinessCard(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getDate(11));
 				list.add(bc);
 			}
-			return list;	// 첫 번째 명함인 경우
+			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null; // 데이터베이스 오류
 	}
 	
-	public BusinessCard getOne(int id) {
-		String SQL = "SELECT bc.id, bc.name, bc.phone, bc.team, bc.position, bc.email, c.name, c.address, c.zip, c.fax, savedTime, c.id FROM business_card as bc join company as c on bc.company_id = c.id WHERE bc.id = " + id + ";";
+	public BusinessCard getOne(int id, int userId) {
+		String SQL = "SELECT id, name, phone, team, position, email, companyName, companyAddress, companyZip, companyFax, savedTime FROM business_card WHERE (id = ?) and (user_id = ?);";
 		BusinessCard bc = null;
-		int companyId = 0;
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			rs = pstmt.executeQuery(SQL);
+			pstmt.setInt(1, id);
+			pstmt.setInt(2, userId);
+			rs = pstmt.executeQuery();
 			rs.next();
 			bc = new BusinessCard(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getDate(11));
-			companyId = rs.getInt(12);
 		} catch(Exception e){
 			e.printStackTrace();
 		}
 		ArrayList<String> list = new ArrayList<String>();
-		SQL = "select telephone from company_telephone where company_id = " + companyId + ";";
+		SQL = "SELECT telephone FROM company_telephone WHERE company_id = ?";
+		System.out.println(id);
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			rs = pstmt.executeQuery(SQL);
+			pstmt.setInt(1, id);
+			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				list.add(rs.getString(1));
+				
 			}
 			bc.setTelephone(list);
+			System.out.println(list);
 		} catch(Exception e){
 			e.printStackTrace();
 		}
 		
 		list = new ArrayList<String>();
-		SQL = "select type from company_type where company_id = " + companyId + ";";
+		SQL = "SELECT type FROM company_type WHERE company_id = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			rs = pstmt.executeQuery(SQL);
+			pstmt.setInt(1, id);
+			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				list.add(rs.getString(1));
+				System.out.println(rs.getString(1));
 			}
 			bc.setBusinessType(list);
+			System.out.println(list);
 		} catch(Exception e){
 			e.printStackTrace();
 		}
@@ -137,8 +145,23 @@ public class BusinessCardDAO {
 		return -1;
 	}
 	
+	public int getCount(String search) { //데이터 개수 가져오기
+		String SQL = "SELECT COUNT(*) FROM business_card WHERE name = WHERE name like '%?%';";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, search);
+			rs = pstmt.executeQuery();
+			rs.next();
+			int count = rs.getInt(1);
+			return count;
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	
 	public ArrayList<BusinessCard> searchByName(String search, int page) {
-		String SQL = "SELECT bc.id, bc.name, bc.phone, bc.team, bc.position, bc.email, c.name, c.address, c.zip, c.fax, savedTime, c.id FROM business_card as bc join company as c on bc.company_id = c.id WHERE bc.name like '%" + search + "%' ORDER BY bc.id DESC LIMIT " + ((page - 1) * 10) +", 10; ";
+		String SQL = "SELECT id, name, phone, team, position, email, companyName, companyAddress, companyZip, companyFax, savedTime FROM business_card WHERE name like '%" + search + "%' ORDER BY id DESC LIMIT " + ((page - 1) * 10) +", 10; ";
 		try {
 			ArrayList<BusinessCard> list = new ArrayList<BusinessCard>();
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
@@ -165,9 +188,9 @@ public class BusinessCardDAO {
 			String address,
 			String zip,
 			String fax,
-			String telephone,
-			String businessType) {
-		String SQL = "INSERT INTO BUSINESS_CARD(id, name, phone, team, position, email, company_id, user_id) VALUE (?, ?, ?, ?, ?, ?, ?, ?)";
+			ArrayList<String> telephone,
+			ArrayList<String> businessType) {
+		String SQL = "INSERT INTO BUSINESS_CARD SET id=?, name=?, phone=?, team=?, position=?, email=?, companyName=?, companyAddress=?, companyZip=?, companyFax=?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, getNext());
@@ -176,13 +199,11 @@ public class BusinessCardDAO {
 			pstmt.setString(4, team);
 			pstmt.setString(5, position);
 			pstmt.setString(6, email);
-			pstmt.setInt(7, 1);
-			pstmt.setInt(8, 2);
-			/*
 			pstmt.setString(7, company);
 			pstmt.setString(8, address);
 			pstmt.setString(9, zip);
 			pstmt.setString(10, fax);
+			/*
 			pstmt.setString(11, telephone);
 			pstmt.setString(12, businessType);
 			*/

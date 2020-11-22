@@ -1,6 +1,8 @@
 package BusinessCard;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -49,8 +51,20 @@ public class AddCardServlet extends HttpServlet {
 		String address = request.getParameter("address");
 		String zip = request.getParameter("zip");
 		String fax = request.getParameter("fax");
-		String telephone = request.getParameter("telephone");
-		String businessType = request.getParameter("businessType");
+		ArrayList<String> telephone = (ArrayList<String>) request.getAttribute("telephone");
+		ArrayList<String> businessType = (ArrayList<String>) request.getAttribute("businessType");
+		
+		/*
+		CompanyTelephone cte = new CompanyTelephone();
+		
+		for(int i=0;i<telephone.size();i++) {
+			cte.setTelephone(telephone.indexOf(i));
+			
+			ccdao.insert(ccvo);
+			
+		}
+		*/
+		
 		//int userNum = Integer.parseInt(request.getParameter("userNum"));
 		if(BusinessCardDAO.getInstance().addCard(name, phone, team, position, email, company, address, zip, fax, telephone, businessType)) {
 			response.sendRedirect("index.jsp");

@@ -36,9 +36,10 @@
 		bcId = Integer.parseInt(request.getParameter("bcId"));
 	}
 	BusinessCard bc = new BusinessCardDAO().getOne(bcId, userId);
-	boolean result = dao.update(bcId, bc.getName(), bc.getPhone(), bc.getTeam(),
-			bc.getPosition(), bc.getEmail(), bc.getCompany(), bc.getAddress(),
-			bc.getZip(), bc.getFax(), bc.getTelephone(), bc.getBusinessType());
+	boolean result = dao.update(bcId, request.getParameter("name"), request.getParameter("phone"), request.getParameter("team"),
+			request.getParameter("position"), request.getParameter("email"), request.getParameter("company"), request.getParameter("address"),
+			request.getParameter("zip"), request.getParameter("fax"), (ArrayList)session.getAttribute("telephone"), (ArrayList)session.getAttribute("businessType"));
+	System.out.println(result);
 	if (result == true) {
 		PrintWriter script = response.getWriter();
 

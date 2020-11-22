@@ -216,7 +216,7 @@ public class BusinessCardDAO {
 		return false; // 데이터베이스 오류
 	}
 	
-	public boolean update(int cardId,
+	public boolean update(int bcId,
 			String name,
 			String phone,
 			String team,
@@ -228,7 +228,7 @@ public class BusinessCardDAO {
 			String fax,
 			ArrayList<String> telephone,
 			ArrayList<String> businessType) {
-		String SQL = "UPDATE BUSINESS_CARD SET name = ?, phone = ?, team = ?, position = ?, email = ?, company_id = ? WHERE id = ?";
+		String SQL = "UPDATE BUSINESS_CARD SET name=?, phone=?, team=?, position=?, email=?, companyName=?, companyAddress=?, companyZip=?, companyFax=? WHERE id=?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, name);
@@ -236,13 +236,12 @@ public class BusinessCardDAO {
 			pstmt.setString(3, team);
 			pstmt.setString(4, position);
 			pstmt.setString(5, email);
-			pstmt.setInt(6, 1);
-			pstmt.setInt(7, cardId);
+			pstmt.setString(6, company);
+			pstmt.setString(7, address);
+			pstmt.setString(8, zip);
+			pstmt.setString(9, fax);
+			pstmt.setInt(10, bcId);
 			/*
-			pstmt.setString(7, company);
-			pstmt.setString(8, address);
-			pstmt.setString(9, zip);
-			pstmt.setString(10, fax);
 			pstmt.setString(11, telephone);
 			pstmt.setString(12, businessType);
 			*/

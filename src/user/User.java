@@ -6,6 +6,13 @@ public class User {
 	private String username;	// 유저ID or 닉네임
 	private String password;	// 비밀번호
 	
+	public User(int id, String name, String username, String password) {
+		this.id = id;
+		this.name = name;
+		this.username = username;
+		this.password = password;
+	}
+	
 	public int getId() {
 		return id;
 	}

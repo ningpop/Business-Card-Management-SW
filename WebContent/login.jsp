@@ -11,23 +11,18 @@
 </head>
 <body>
 	<%
-		boolean isLogin = false;
+	String name = (String) session.getAttribute("name");
+	String username = (String) session.getAttribute("username");
+	String password = (String) session.getAttribute("password");
+	if (!(name == null || username == null || password == null)) {
+		response.sendRedirect("/index.jsp");
+	}
 	%>
 	<div class="header">
 		<div class="responsive">
 			<div class="wrapper">
-				<div onclick="location.href='/'" class="logo">BUSINESS CARD</div>
-				<%
-					if (isLogin) {
-				%>
-				<button class="authButton" onclick="location.href='/'">로그아웃</button>
-				<%
-					} else {
-				%>
-				<button class="authButton" onclick="location.href='/login.jsp'">로그인</button>
-				<%
-					}
-				%>
+				<div onclick="location.href='index.jsp'" class="logo">BUSINESS CARD</div>
+				<button class="authButton" onclick="location.href='login.jsp'">로그인</button>
 			</div>
 		</div>
 	</div>
@@ -37,15 +32,15 @@
 			<a class="logo-area" href="/">BUSINESS CARD</a>
 			<div>
 				<h3>로그인</h3>
-				<form>
+				<form action="LoginServlet" method="post">
 					<input class="input" autoComplete="username" name="username"
 						placeholder="아이디" /> <input class="input"
 						autoComplete="new-password" name="password" placeholder="비밀번호"
 						type="password" />
-					<button class="loginButton">로그인</button>
+					<button class="loginButton" type="submit">로그인</button>
 				</form>
 				<div class="footer">
-					<a href="/signup.jsp" class="link">회원가입</a>
+					<a href="signup.jsp" class="link">회원가입</a>
 				</div>
 			</div>
 		</div>

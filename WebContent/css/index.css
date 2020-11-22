@@ -59,6 +59,22 @@ th, td {
 	font-size: 1.25rem;
 }
 
+.pagenumber {
+	cursor: pointer;
+	border: none;
+	background-color: white;
+	font-size: 1rem;
+	text-align: center;
+	justify-content: center;
+}
+.pagenumber:hover {
+	background-color: lightgray;
+}
+
+.active {
+	font-weight: 700;
+}
+
 @media ( max-width : 768px) {
 	th, td {
 		padding-left: 3px;

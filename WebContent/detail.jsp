@@ -14,11 +14,20 @@
 </head>
 <body>
 	<%
-		boolean isLogin = false;
-		int id = Integer.parseInt(request.getParameter("id"));
-		BusinessCardDAO dao = new BusinessCardDAO();
-		BusinessCard bc = dao.getOne(id);
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		boolean isLogin;
+	String name = (String) session.getAttribute("name");
+	String username = (String) session.getAttribute("username");
+	String password = (String) session.getAttribute("password");
+	if (name == null || username == null || password == null) {
+		response.sendRedirect("/login.jsp");
+		isLogin = false;
+	} else {
+		isLogin = true;
+	}
+	int id = Integer.parseInt(request.getParameter("id"));
+	BusinessCardDAO dao = new BusinessCardDAO();
+	BusinessCard bc = dao.getOne(id);
+	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 	%>
 	<div class="header">
 		<div class="responsive">
@@ -27,7 +36,7 @@
 				<%
 					if (isLogin) {
 				%>
-				<button class="authButton" onclick="location.href='/'">로그아웃</button>
+				<button class="authButton" onclick="location.href='/LogoutServlet'">로그아웃</button>
 				<%
 					} else {
 				%>
@@ -51,37 +60,76 @@
 					<td class="body"><%=bc.getName()%></td>
 				</tr>
 				<tr>
-					<td class="name">회사 </td>
+					<td class="name">회사</td>
 					<td class="body"><%=bc.getCompany()%></td>
 					<td class="name">전화번호</td>
 					<td class="body"><%=bc.getPhone()%></td>
 				</tr>
 				<tr>
 					<td class="name">부서</td>
-					<td class="body"><%=bc.getTeam() %></td>
+					<td class="body"><%=bc.getTeam()%></td>
 					<td class="name">직급</td>
-					<td class="body"><%= bc.getPosition()%></td>
+					<td class="body"><%=bc.getPosition()%></td>
 				</tr>
 				<tr>
 					<td class="name">이메일</td>
-					<td class="body"><%= bc.getEmail()%></td>
+					<td class="body"><%=bc.getEmail()%></td>
 					<td class="name">주소</td>
-					<td class="body"><%= bc.getAddress()%></td>
+					<td class="body"><%=bc.getAddress()%></td>
 				</tr>
 				<tr>
 					<td class="name">우편번호</td>
-					<td class="body"><%= bc.getZip()%></td>
+					<td class="body"><%=bc.getZip()%></td>
 					<td class="name">팩스</td>
-					<td class="body"><%= bc.getFax()%></td>
+					<td class="body"><%=bc.getFax()%></td>
 				</tr>
+				<%
+					int length;
+				String str = "";
+				if (bc.getBusinessType().size() > bc.getTelephone().size())
+					length = bc.getBusinessType().size();
+				else
+					length = bc.getTelephone().size();
+				for (int i = 0; i < length; i++) {
+				%>
 				<tr>
-					<td class="name">회사 전화</td>
-					<td class="body"><%= bc.getTelephone()%></td>
-					<td class="name">업종</td>
-					<td class="body"><%= bc.getBusinessType()%></td>
+					<td class="name">
+						<%
+							if (i < bc.getTelephone().size()) {
+						%>회사 전화 <%=i + 1%> <%
+					 	}
+					 %>
+					</td>
+					<td class="body">
+						<%
+							if (i >= bc.getTelephone().size())
+							str = "";
+						else
+							str = bc.getTelephone().get(i);
+						%> <%=str%>
+					</td>
+					<td class="name">
+						<%
+							if (i < bc.getBusinessType().size()) {
+						%>업종 <%=i + 1%> <%
+					 	}
+					 %>
+					</td>
+					<td class="body">
+						<%
+							if (i >= bc.getBusinessType().size())
+							str = "";
+						else
+							str = bc.getBusinessType().get(i);
+						%> <%=str%></td>
 				</tr>
+				<%
+					}
+				%>
 			</table>
-			<div class="date">등록일: <%=format.format(bc.getSavedTime())%></div>
+			<div class="date">
+				등록일:
+				<%=format.format(bc.getSavedTime())%></div>
 			<button class="previousButton" onclick="history.back()">이전</button>
 		</div>
 	</div>

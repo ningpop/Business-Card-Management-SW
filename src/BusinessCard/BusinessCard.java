@@ -15,12 +15,26 @@ public class BusinessCard {
 	private String address;			// 회사 주소
 	private String zip;				// 회사 우편번호
 	private String fax;				// 회사 팩스번호
-	private String telephone;		// 회사 전화번호
-	private String businessType;	// 업종 명
+	private ArrayList<String> telephone;		// 회사 전화번호
+	private ArrayList<String> businessType;	// 업종 명
+	
+	public BusinessCard() {
+		this.id = 0;
+		this.name = null;
+		this.phone = null;
+		this.team = null;
+		this.position = null;
+		this.email = null;
+		this.company = null;
+		this.address = null;
+		this.zip = null;
+		this.fax = null;
+		this.savedTime = null;
+	}
 	
 	public BusinessCard(int id, String name, String phone, String team, String position,
 			String email, String company, String address, String zip,
-			String fax, String telephone, String businessType, Date savedTime) {
+			String fax, Date savedTime) {
 		// TODO Auto-generated constructor stub
 		this.id = id;
 		this.name = name;
@@ -32,13 +46,14 @@ public class BusinessCard {
 		this.address = address;
 		this.zip = zip;
 		this.fax = fax;
-		this.telephone = telephone;
-		this.businessType = businessType;
 		this.savedTime = savedTime;
 	}
 	/* Getter & Setter */
 	public int getId() {
 		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getName() {
 		return name;
@@ -97,16 +112,16 @@ public class BusinessCard {
 	public void setFax(String fax) {
 		this.fax = fax;
 	}
-	public String getTelephone() {
+	public ArrayList<String> getTelephone() {
 		return telephone;
 	}
-	public void setTelephone(String telephone) {
+	public void setTelephone(ArrayList<String> telephone) {
 		this.telephone = telephone;
 	}
-	public String getBusinessType() {
+	public ArrayList<String> getBusinessType() {
 		return businessType;
 	}
-	public void setBusinessType(String businessType) {
+	public void setBusinessType(ArrayList<String> businessType) {
 		this.businessType = businessType;
 	}
 	

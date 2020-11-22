@@ -42,6 +42,7 @@ public class AddCardServlet extends HttpServlet {
 		//doGet(request, response);
 		
 		request.setCharacterEncoding("UTF-8");
+		int user_id = Integer.parseInt((String)request.getSession().getAttribute("id"));
 		String name = request.getParameter("name");
 		String phone = request.getParameter("phone");
 		String team = request.getParameter("team");
@@ -51,9 +52,15 @@ public class AddCardServlet extends HttpServlet {
 		String address = request.getParameter("address");
 		String zip = request.getParameter("zip");
 		String fax = request.getParameter("fax");
-		ArrayList<String> telephone = (ArrayList<String>) request.getAttribute("telephone");
-		ArrayList<String> businessType = (ArrayList<String>) request.getAttribute("businessType");
-		
+		ArrayList<String> telephone = new ArrayList<String>();
+		String[] tele = request.getParameterValues("telephone[]");
+		for(String t: tele) telephone.add(t);
+		System.out.println(telephone);
+
+		ArrayList<String> businessType = new ArrayList<String>();
+		String[] busi = request.getParameterValues("telephone[]");
+		for(String b: busi) businessType.add(b);
+		System.out.println(businessType);
 		/*
 		CompanyTelephone cte = new CompanyTelephone();
 		
@@ -66,7 +73,7 @@ public class AddCardServlet extends HttpServlet {
 		*/
 		
 		//int userNum = Integer.parseInt(request.getParameter("userNum"));
-		if(BusinessCardDAO.getInstance().addCard(name, phone, team, position, email, company, address, zip, fax, telephone, businessType)) {
+		if(BusinessCardDAO.getInstance().addCard(user_id, name, phone, team, position, email, company, address, zip, fax, telephone, businessType)) {
 			response.sendRedirect("index.jsp");
 		}
 		else {

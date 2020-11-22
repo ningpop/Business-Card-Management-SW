@@ -179,7 +179,7 @@ public class BusinessCardDAO {
 	
 	
 	
-	public boolean addCard(String name,
+	public boolean addCard(int userId, String name,
 			String phone,
 			String team,
 			String position,
@@ -190,10 +190,10 @@ public class BusinessCardDAO {
 			String fax,
 			ArrayList<String> telephone,
 			ArrayList<String> businessType) {
-		String SQL = "INSERT INTO BUSINESS_CARD SET id=?, name=?, phone=?, team=?, position=?, email=?, companyName=?, companyAddress=?, companyZip=?, companyFax=?";
+		String SQL = "INSERT INTO BUSINESS_CARD SET user_id=?,name=?, phone=?, team=?, position=?, email=?, companyName=?, companyAddress=?, companyZip=?, companyFax=?;";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt(1, getNext());
+			pstmt.setInt(1, userId);
 			pstmt.setString(2, name);
 			pstmt.setString(3, phone);
 			pstmt.setString(4, team);
@@ -203,6 +203,7 @@ public class BusinessCardDAO {
 			pstmt.setString(8, address);
 			pstmt.setString(9, zip);
 			pstmt.setString(10, fax);
+			
 			/*
 			pstmt.setString(11, telephone);
 			pstmt.setString(12, businessType);

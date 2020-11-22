@@ -73,14 +73,57 @@
 			<input placeholder="회사명" class="" name="company" value="<%= bc.getCompany() %>" /><br>
 			<input placeholder="회사 주소" class="" name="address" value="<%= bc.getAddress() %>" /><br>
 			<input placeholder="회사 우편번호" class="" name="zip" value="<%= bc.getZip() %>" /><br>
-			<input placeholder="회사 전화번호" class="" name="telephone" value="<%= bc.getTelephone() %>" /><br>
+			<input placeholder="회사 전화번호" class="" name="telephone[]" value="<%= bc.getTelephone().size() <=0 ? "" : bc.getTelephone().get(0) %>" /><button onclick="telephone()" type="button">+</button><br>
+			<div id="telephone">
+			<%
+				for(int i = 1; i < bc.getTelephone().size();i++) {
+					%>
+						<input placeholder="회사 전화번호 <%=i %>" class="" name="telephone[]" value="<%= bc.getTelephone().get(i) %>" /><br/>
+					<%
+				}
+			%>
+			</div>
 			<input placeholder="회사 팩스번호" class="" name="fax" value="<%= bc.getFax() %>" /><br>
-			<input placeholder="업종명" class="" name="businessType" value="<%= bc.getBusinessType() %>" /><br>
-			<!-- <input type="hidden" name='userNum' value="${param.num }"/> -->
+			<input placeholder="업종명" class="" name="type[]" value="<%=bc.getBusinessType().size() <= 0 ? "" : bc.getBusinessType().get(0) %>" /><button onclick="addType()" type="button">+</button><br>
+			<div id="type">
+			<%
+				for(int i = 1; i < bc.getBusinessType().size();i++) {
+					%>
+						<input placeholder="업종명 <%=i %>" class="" name="type[]" value="<%= bc.getBusinessType().get(i) %>" /><br/>
+					<%
+				}
+			%>
+			</div>
 			<button class="authButton" type="submit">수정</button>
 		</form>
 		
 		
 	</div>
+	<script>
+		let i = 1;
+		const telephone = () => {
+			const telephoneDiv = document.getElementById("telephone");
+			const clone = document.createElement("input");
+			const br = document.createElement("br");
+			clone.placeholder = '회사 전화번호 ' + i++;
+			clone.name = "telephone[]";
+			telephoneDiv.appendChild(clone);
+			telephoneDiv.appendChild(br);
+		}
+		
+		
+	</script>
+	<script>
+		let j = 1;
+		const addType = () => {
+			const typeDiv = document.getElementById("type");
+			const clone = document.createElement("input");
+			const br = document.createElement("br");
+			clone.placeholder = '업종명 ' + j++;
+			clone.name = "type[]";
+			typeDiv.appendChild(clone);
+			typeDiv.appendChild(br);
+		}
+	</script>
 </body>
 </html>

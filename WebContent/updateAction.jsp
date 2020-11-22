@@ -17,6 +17,7 @@
 </head>
 <body>
 	<%
+	request.setCharacterEncoding("UTF-8");
 	boolean isLogin;
 	int userId = -1;
 		String name = (String) session.getAttribute("name");
@@ -36,9 +37,18 @@
 		bcId = Integer.parseInt(request.getParameter("bcId"));
 	}
 	BusinessCard bc = new BusinessCardDAO().getOne(bcId, userId);
+	ArrayList<String> telephone = new ArrayList<String>();
+	String[] tele = request.getParameterValues("telephone[]");
+	for(String t: tele) telephone.add(t);
+	System.out.println(telephone);
+
+	ArrayList<String> businessType = new ArrayList<String>();
+	String[] busi = request.getParameterValues("type[]");
+	for(String b: busi) businessType.add(b);
+	System.out.println(businessType);
 	boolean result = dao.update(bcId, request.getParameter("name"), request.getParameter("phone"), request.getParameter("team"),
 			request.getParameter("position"), request.getParameter("email"), request.getParameter("company"), request.getParameter("address"),
-			request.getParameter("zip"), request.getParameter("fax"), (ArrayList)session.getAttribute("telephone"), (ArrayList)session.getAttribute("businessType"));
+			request.getParameter("zip"), request.getParameter("fax"), telephone, businessType);
 	System.out.println(result);
 	if (result == true) {
 		PrintWriter script = response.getWriter();
@@ -47,7 +57,6 @@
 
 		script.println("location.href='index.jsp'");
 
-		//script.println("history.back()");
 
 		script.println("</script>");
 	}

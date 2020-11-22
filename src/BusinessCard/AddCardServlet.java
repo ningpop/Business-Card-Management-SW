@@ -55,24 +55,12 @@ public class AddCardServlet extends HttpServlet {
 		ArrayList<String> telephone = new ArrayList<String>();
 		String[] tele = request.getParameterValues("telephone[]");
 		for(String t: tele) telephone.add(t);
-		System.out.println(telephone);
 
 		ArrayList<String> businessType = new ArrayList<String>();
-		String[] busi = request.getParameterValues("telephone[]");
+		String[] busi = request.getParameterValues("type[]");
 		for(String b: busi) businessType.add(b);
-		System.out.println(businessType);
-		/*
-		CompanyTelephone cte = new CompanyTelephone();
+
 		
-		for(int i=0;i<telephone.size();i++) {
-			cte.setTelephone(telephone.indexOf(i));
-			
-			ccdao.insert(ccvo);
-			
-		}
-		*/
-		
-		//int userNum = Integer.parseInt(request.getParameter("userNum"));
 		if(BusinessCardDAO.getInstance().addCard(user_id, name, phone, team, position, email, company, address, zip, fax, telephone, businessType)) {
 			response.sendRedirect("index.jsp");
 		}

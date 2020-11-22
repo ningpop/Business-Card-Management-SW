@@ -190,31 +190,51 @@ public class BusinessCardDAO {
 			String fax,
 			ArrayList<String> telephone,
 			ArrayList<String> businessType) {
-		String SQL = "INSERT INTO BUSINESS_CARD SET user_id=?,name=?, phone=?, team=?, position=?, email=?, companyName=?, companyAddress=?, companyZip=?, companyFax=?;";
+		String SQL = "INSERT INTO BUSINESS_CARD SET id=?, user_id=?, name=?, phone=?, team=?, position=?, email=?, companyName=?, companyAddress=?, companyZip=?, companyFax=?;";
+		int id = getNext();
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt(1, userId);
-			pstmt.setString(2, name);
-			pstmt.setString(3, phone);
-			pstmt.setString(4, team);
-			pstmt.setString(5, position);
-			pstmt.setString(6, email);
-			pstmt.setString(7, company);
-			pstmt.setString(8, address);
-			pstmt.setString(9, zip);
-			pstmt.setString(10, fax);
-			
-			/*
-			pstmt.setString(11, telephone);
-			pstmt.setString(12, businessType);
-			*/
-			// rs = pstmt.executeQuery();
+			pstmt.setInt(1, id);
+			pstmt.setInt(2, userId);
+			pstmt.setString(3, name);
+			pstmt.setString(4, phone);
+			pstmt.setString(5, team);
+			pstmt.setString(6, position);
+			pstmt.setString(7, email);
+			pstmt.setString(8, company);
+			pstmt.setString(9, address);
+			pstmt.setString(10, zip);
+			pstmt.setString(11, fax);
 			pstmt.executeUpdate();
-			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return false; // 데이터베이스 오류
+		
+		for(String s: telephone) {
+			SQL = "INSERT INTO company_telephone SET company_id=?, telephone=?";
+			try {
+				PreparedStatement pstmt = conn.prepareStatement(SQL);
+				pstmt.setInt(1, id);
+				pstmt.setString(2, s);
+				pstmt.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		for(String s: businessType) {
+			SQL = "INSERT INTO company_type SET company_id=?, type=?";
+			try {
+				PreparedStatement pstmt = conn.prepareStatement(SQL);
+				pstmt.setInt(1, id);
+				pstmt.setString(2, s);
+				pstmt.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return true;
 	}
 	
 	public boolean update(int bcId,
@@ -242,17 +262,59 @@ public class BusinessCardDAO {
 			pstmt.setString(8, zip);
 			pstmt.setString(9, fax);
 			pstmt.setInt(10, bcId);
-			/*
-			pstmt.setString(11, telephone);
-			pstmt.setString(12, businessType);
-			*/
-			// rs = pstmt.executeQuery();
+
 			pstmt.executeUpdate();
-			return true;
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return false; // 데이터베이스 오류
+		
+		SQL = "DELETE FROM company_telephone WHERE company_id = ?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, bcId);
+			
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		SQL = "DELETE FROM company_type WHERE company_id = ?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, bcId);
+			
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		for(String s: telephone) {
+			SQL = "INSERT INTO company_telephone SET company_id=?, telephone=?";
+			try {
+				PreparedStatement pstmt = conn.prepareStatement(SQL);
+				pstmt.setInt(1, bcId);
+				pstmt.setString(2, s);
+				
+				pstmt.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		for(String s: businessType) {
+			SQL = "INSERT INTO company_type SET company_id=?, type=?";
+			try {
+				PreparedStatement pstmt = conn.prepareStatement(SQL);
+				pstmt.setInt(1, bcId);
+				pstmt.setString(2, s);
+				
+				pstmt.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return true;
 	}
 	
 	public BusinessCard getBusinessCard(int bcId) {
@@ -287,7 +349,25 @@ public class BusinessCardDAO {
 	}
 	
 	public boolean delete(int bcId) {
-		String SQL = "DELETE FROM BUSINESS_CARD WHERE id = ?";
+		String SQL = "DELETE FROM company_telephone WHERE company_id = ?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, bcId);
+			
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		SQL = "DELETE FROM company_type WHERE company_id = ?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, bcId);
+			
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		SQL = "DELETE FROM BUSINESS_CARD WHERE id = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, bcId);

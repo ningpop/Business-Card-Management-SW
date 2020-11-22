@@ -76,7 +76,7 @@
 				<input placeholder="이름으로 검색" class="search" id="target"
 					value="<%=search%>" />
 				<button class="searchButton" onclick="search()">검색</button>
-				<button class="authButton" onclick="location.href='addCard.jsp'">명함등록</button>
+				
 			</div>
 		</div>
 		<table>
@@ -108,6 +108,9 @@
 
 			</tbody>
 		</table>
+		<div>
+			<button class="createButton" onclick="location.href='addCard.jsp'">명함등록</button>
+		</div>
 		<div class="page">
 			<%
 				int firstPage = ((nowPage - 1) / 5) * 5 + 1;
@@ -142,6 +145,7 @@
 			<%
 				}
 			%>
+			
 		</div>
 	</div>
 	<script>

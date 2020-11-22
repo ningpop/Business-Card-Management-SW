@@ -65,7 +65,7 @@
 			<input placeholder="회사 전화번호" class="" name="telephone[]" /><button onclick="telephone()" type="button">+</button><br>
 			<div id="telephone"></div>
 			<input placeholder="회사 팩스번호" class="" name="fax" /><br>
-			<input placeholder="업종명" class="" name="businessType[]"/><button onclick="addType()" type="button">+</button><br>
+			<input placeholder="업종명" class="" name="type[]"/><button onclick="addType()" type="button">+</button><br>
 			<div id="type"></div>
 			<!-- <input type="hidden" name='userNum' value="${param.num }"/> -->
 			<button class="authButton" type="submit">등록</button>

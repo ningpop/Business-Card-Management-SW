@@ -49,7 +49,6 @@ public class UserDAO {
 					httpSession.setAttribute("id", id);
 					httpSession.setAttribute("name", name);
 			        httpSession.setAttribute("username", username);
-			        httpSession.setAttribute("password", password);
 					return true; // 비밀번호 일치
 				}
 			}

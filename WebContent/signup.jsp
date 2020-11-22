@@ -13,8 +13,7 @@
 	<%
 	String name = (String) session.getAttribute("name");
 	String username = (String) session.getAttribute("username");
-	String password = (String) session.getAttribute("password");
-	if (!(name == null || username == null || password == null)) {
+	if (!(name == null || username == null)) {
 		response.sendRedirect("/index.jsp");
 	}
 	%>

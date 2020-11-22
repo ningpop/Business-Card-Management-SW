@@ -20,8 +20,7 @@
 	boolean isLogin;
 		String name = (String) session.getAttribute("name");
 	String username = (String) session.getAttribute("username");
-	String password = (String) session.getAttribute("password");
-	if (name == null || username == null || password == null) {
+	if (name == null || username == null) {
 		response.sendRedirect("./login.jsp");
 		isLogin = false;
 	}
@@ -31,27 +30,13 @@
 	String param = request.getParameter("page");
 	String search = request.getParameter("search");
 	BusinessCardDAO dao = new BusinessCardDAO();
-	ArrayList<BusinessCard> list;
-	int nowPage;
-	if (param == null || param.equals("") || param.equals("null"))
-		nowPage = 1;
-	else
-		nowPage = Integer.parseInt(param);
-	if (search == null || search.equals("") || search.equals("null")) {
-		list = dao.getLists(nowPage);
-		search = "";
-	} else
-		list = dao.searchByName(search, nowPage);
-	int endPage = dao.getCount() / 10 + 1;
 	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 	
 	int bcId = 0;
 	if (request.getParameter("bcId") != null) {
 		bcId = Integer.parseInt(request.getParameter("bcId"));
 	}
-	BusinessCard bc = new BusinessCardDAO().getBusinessCard(bcId);
-	BusinessCardDAO bcDAO = new BusinessCardDAO();
-	boolean result = bcDAO.delete(bcId);
+	boolean result = dao.delete(bcId);
 	if (result == true) {
 		PrintWriter script = response.getWriter();
 

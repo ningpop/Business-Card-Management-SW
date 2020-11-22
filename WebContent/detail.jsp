@@ -18,8 +18,7 @@
 	int userId = -1;
 	String name = (String) session.getAttribute("name");
 	String username = (String) session.getAttribute("username");
-	String password = (String) session.getAttribute("password");
-	if (name == null || username == null || password == null) {
+	if (name == null || username == null) {
 		response.sendRedirect("/login.jsp");
 		isLogin = false;
 	} else {
@@ -133,6 +132,8 @@
 			<div class="date">
 				등록일:
 				<%=format.format(bc.getSavedTime())%></div>
+			<button class="authButton" onclick="location.href='updateCard.jsp?bcId=<%=id%>'">수정</button>
+			<button class="authButton" onclick="location.href='deleteAction.jsp?bcId=<%=id%>'">삭제</button>
 			<button class="previousButton" onclick="history.back()">이전</button>
 		</div>
 	</div>

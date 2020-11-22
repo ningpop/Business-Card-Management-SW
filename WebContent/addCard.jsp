@@ -62,14 +62,43 @@
 			<input placeholder="회사명" class="" name="company" /><br>
 			<input placeholder="회사 주소" class="" name="address" /><br>
 			<input placeholder="회사 우편번호" class="" name="zip" /><br>
-			<input placeholder="회사 전화번호" class="" name="telephone" /><br>
+			<input placeholder="회사 전화번호" class="" name="telephone[]" /><button onclick="telephone()" type="button">+</button><br>
+			<div id="telephone"></div>
 			<input placeholder="회사 팩스번호" class="" name="fax" /><br>
-			<input placeholder="업종명" class="" name="businessType" /><br>
+			<input placeholder="업종명" class="" name="businessType[]"/><button onclick="addType()" type="button">+</button><br>
+			<div id="type"></div>
 			<!-- <input type="hidden" name='userNum' value="${param.num }"/> -->
 			<button class="authButton" type="submit">등록</button>
 		</form>
 		
 		
 	</div>
+	
+	<script>
+		let i = 1;
+		const telephone = () => {
+			const telephoneDiv = document.getElementById("telephone");
+			const clone = document.createElement("input");
+			const br = document.createElement("br");
+			clone.placeholder = '회사 전화번호 ' + i++;
+			clone.name = "telephone[]";
+			telephoneDiv.appendChild(clone);
+			telephoneDiv.appendChild(br);
+		}
+		
+		
+	</script>
+	<script>
+		let j = 1;
+		const addType = () => {
+			const typeDiv = document.getElementById("type");
+			const clone = document.createElement("input");
+			const br = document.createElement("br");
+			clone.placeholder = '업종명 ' + j++;
+			clone.name = "type[]";
+			typeDiv.appendChild(clone);
+			typeDiv.appendChild(br);
+		}
+	</script>
 </body>
 </html>

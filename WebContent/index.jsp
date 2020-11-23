@@ -1,7 +1,7 @@
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="BusinessCard.BusinessCard"%>
+<%@page import="businesscard.BusinessCard"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="BusinessCard.BusinessCardDAO"%>
+<%@page import="businesscard.BusinessCardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 

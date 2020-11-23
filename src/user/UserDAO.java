@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.mysql.cj.exceptions.CJCommunicationsException;
+
 
 public class UserDAO {
 	private Connection conn;
@@ -24,6 +26,10 @@ public class UserDAO {
 	}
 	
 	public UserDAO() {
+		connect();
+	}
+	
+	private void connect() {
 		try {
 			String dbURL = "jdbc:mysql://localhost:3306/javajo?serverTimezone=UTC";
 			String dbID = "root";
@@ -36,7 +42,7 @@ public class UserDAO {
 	}
 	
 	public boolean login(HttpServletRequest request, String username, String password) {
-		String SQL = "SELECT password, name, id FROM USER WHERE username = ?";
+		String SQL = "SELECT password, name, id FROM user WHERE username = ?";
 		try {
 			pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, username);
@@ -53,6 +59,8 @@ public class UserDAO {
 				}
 			}
 			return false; // 유저네임 불일치
+		} catch(CJCommunicationsException e) {
+			connect();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -69,6 +77,8 @@ public class UserDAO {
 			pstmt.executeUpdate();
 
 			return true;
+		} catch(CJCommunicationsException e) {
+			connect();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

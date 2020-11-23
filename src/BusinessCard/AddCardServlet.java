@@ -1,4 +1,4 @@
-package BusinessCard;
+package businesscard;
 
 import java.io.IOException;
 import java.util.ArrayList;

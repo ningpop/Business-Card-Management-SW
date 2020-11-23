@@ -1,6 +1,6 @@
-<%@page import="BusinessCard.BusinessCardDAO"%>
+<%@page import="businesscard.BusinessCardDAO"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="BusinessCard.BusinessCard"%>
+<%@page import="businesscard.BusinessCard"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -133,7 +133,7 @@
 				등록일:
 				<%=format.format(bc.getSavedTime())%></div>
 			<button class="authButton" onclick="location.href='updateCard.jsp?bcId=<%=id%>'">수정</button>
-			<button class="authButton" onclick="location.href='deleteAction.jsp?bcId=<%=id%>'">삭제</button>
+			<button class="authButton" onclick="location.href='DeleteCardServlet?bcId=<%=id%>'">삭제</button>
 			<button class="previousButton" onclick="history.back()">이전</button>
 		</div>
 	</div>

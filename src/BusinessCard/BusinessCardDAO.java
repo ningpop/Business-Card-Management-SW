@@ -1,10 +1,12 @@
-package BusinessCard;
+package businesscard;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+
+import com.mysql.cj.exceptions.CJCommunicationsException;
 
 import user.UserDAO;
 
@@ -16,6 +18,10 @@ public class BusinessCardDAO {
 	private static BusinessCardDAO instance;
 	
 	public BusinessCardDAO() {
+		connect();
+	}
+	
+	private void connect() {
 		try {
 			String dbURL = "jdbc:mysql://localhost:3306/javajo?serverTimezone=UTC";
 			String dbID = "root";
@@ -43,6 +49,8 @@ public class BusinessCardDAO {
 			if (rs.next()) {
 				return rs.getString(1);
 			}
+		} catch(CJCommunicationsException e) {
+			connect();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -50,7 +58,7 @@ public class BusinessCardDAO {
 	}
 	
 	public int getNext() {
-		String SQL = "SELECT id FROM BUSINESS_CARD ORDER BY id DESC";
+		String SQL = "SELECT id FROM business_card ORDER BY id DESC";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			rs = pstmt.executeQuery();
@@ -58,6 +66,8 @@ public class BusinessCardDAO {
 				return rs.getInt(1) + 1;
 			}
 			return 1;	// 첫 번째 명함인 경우
+		} catch(CJCommunicationsException e) {
+			connect();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -76,6 +86,8 @@ public class BusinessCardDAO {
 				list.add(bc);
 			}
 			return list;
+		} catch(CJCommunicationsException e) {
+			connect();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -124,6 +136,8 @@ public class BusinessCardDAO {
 			}
 			bc.setBusinessType(list);
 			System.out.println(list);
+		} catch(CJCommunicationsException e) {
+			connect();
 		} catch(Exception e){
 			e.printStackTrace();
 		}
@@ -139,6 +153,8 @@ public class BusinessCardDAO {
 			rs.next();
 			int count = rs.getInt(1);
 			return count;
+		} catch(CJCommunicationsException e) {
+			connect();
 		} catch(Exception e){
 			e.printStackTrace();
 		}
@@ -154,6 +170,8 @@ public class BusinessCardDAO {
 			rs.next();
 			int count = rs.getInt(1);
 			return count;
+		} catch(CJCommunicationsException e) {
+			connect();
 		} catch(Exception e){
 			e.printStackTrace();
 		}
@@ -171,6 +189,8 @@ public class BusinessCardDAO {
 				list.add(bc);
 			}
 			return list;	// 첫 번째 명함인 경우
+		} catch(CJCommunicationsException e) {
+			connect();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -190,7 +210,7 @@ public class BusinessCardDAO {
 			String fax,
 			ArrayList<String> telephone,
 			ArrayList<String> businessType) {
-		String SQL = "INSERT INTO BUSINESS_CARD SET id=?, user_id=?, name=?, phone=?, team=?, position=?, email=?, companyName=?, companyAddress=?, companyZip=?, companyFax=?;";
+		String SQL = "INSERT INTO business_card SET id=?, user_id=?, name=?, phone=?, team=?, position=?, email=?, companyName=?, companyAddress=?, companyZip=?, companyFax=?;";
 		int id = getNext();
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
@@ -206,6 +226,8 @@ public class BusinessCardDAO {
 			pstmt.setString(10, zip);
 			pstmt.setString(11, fax);
 			pstmt.executeUpdate();
+		} catch(CJCommunicationsException e) {
+			connect();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -217,6 +239,8 @@ public class BusinessCardDAO {
 				pstmt.setInt(1, id);
 				pstmt.setString(2, s);
 				pstmt.executeUpdate();
+			} catch(CJCommunicationsException e) {
+				connect();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -229,6 +253,8 @@ public class BusinessCardDAO {
 				pstmt.setInt(1, id);
 				pstmt.setString(2, s);
 				pstmt.executeUpdate();
+			} catch(CJCommunicationsException e) {
+				connect();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -249,7 +275,7 @@ public class BusinessCardDAO {
 			String fax,
 			ArrayList<String> telephone,
 			ArrayList<String> businessType) {
-		String SQL = "UPDATE BUSINESS_CARD SET name=?, phone=?, team=?, position=?, email=?, companyName=?, companyAddress=?, companyZip=?, companyFax=? WHERE id=?";
+		String SQL = "UPDATE business_card SET name=?, phone=?, team=?, position=?, email=?, companyName=?, companyAddress=?, companyZip=?, companyFax=? WHERE id=?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, name);
@@ -265,6 +291,8 @@ public class BusinessCardDAO {
 
 			pstmt.executeUpdate();
 			
+		} catch(CJCommunicationsException e) {
+			connect();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -275,6 +303,8 @@ public class BusinessCardDAO {
 			pstmt.setInt(1, bcId);
 			
 			pstmt.executeUpdate();
+		} catch(CJCommunicationsException e) {
+			connect();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -284,6 +314,8 @@ public class BusinessCardDAO {
 			pstmt.setInt(1, bcId);
 			
 			pstmt.executeUpdate();
+		} catch(CJCommunicationsException e) {
+			connect();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -296,6 +328,8 @@ public class BusinessCardDAO {
 				pstmt.setString(2, s);
 				
 				pstmt.executeUpdate();
+			} catch(CJCommunicationsException e) {
+				connect();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -309,6 +343,8 @@ public class BusinessCardDAO {
 				pstmt.setString(2, s);
 				
 				pstmt.executeUpdate();
+			} catch(CJCommunicationsException e) {
+				connect();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -318,7 +354,7 @@ public class BusinessCardDAO {
 	}
 	
 	public BusinessCard getBusinessCard(int bcId) {
-		String SQL = "SELECT * FROM BUSINESS_CARD WHERE id = ?";
+		String SQL = "SELECT * FROM business_card WHERE id = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, bcId);
@@ -342,6 +378,8 @@ public class BusinessCardDAO {
 				
 				return bc;
 			}
+		} catch(CJCommunicationsException e) {
+			connect();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -355,6 +393,8 @@ public class BusinessCardDAO {
 			pstmt.setInt(1, bcId);
 			
 			pstmt.executeUpdate();
+		} catch(CJCommunicationsException e) {
+			connect();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -364,10 +404,12 @@ public class BusinessCardDAO {
 			pstmt.setInt(1, bcId);
 			
 			pstmt.executeUpdate();
+		} catch(CJCommunicationsException e) {
+			connect();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		SQL = "DELETE FROM BUSINESS_CARD WHERE id = ?";
+		SQL = "DELETE FROM business_card WHERE id = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, bcId);
@@ -375,6 +417,8 @@ public class BusinessCardDAO {
 			// rs = pstmt.executeQuery();
 			pstmt.executeUpdate();
 			return true;
+		} catch(CJCommunicationsException e) {
+			connect();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
